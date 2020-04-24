@@ -1,5 +1,6 @@
 .home {
-  padding: 56px 20px;
+  max-width: 504px;
+  margin: 56px auto 0 auto;
   min-height: 100%;
-  width: 100%;
+  background-color: var(--text-color);
 }
