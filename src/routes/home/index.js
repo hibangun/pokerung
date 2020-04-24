@@ -8,23 +8,39 @@ export default class Home extends Component {
     super(props)
 
     this.state = {
-      pokemons: []
+      pokemons: [],
+      nextPokemonsUrl: ''
     }
   }
 
   // gets called when this route is navigated to
   componentDidMount () {
+    document.addEventListener('scroll', this.trackScrolling)
     this.getPokemonsList()
-    // start a timer for the clock:
-    this.timer = setInterval(this.updateTime, 1000)
   }
 
-  async getPokemonsList () {
-    let response = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=11')
+  componentWillUnmount () {
+    document.removeEventListener('scroll', this.trackScrolling)
+  }
+
+  trackScrolling = () => {
+    const wrappedElement = document.getElementById('content')
+    if (this.isBottom(wrappedElement)) {
+      this.getPokemonsList(this.state.nextPokemonsUrl)
+    }
+  }
+
+  isBottom(el) {
+    return el.getBoundingClientRect().bottom <= window.innerHeight
+  }
+
+  async getPokemonsList (url = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=11') {
+    let response = await fetch(url)
     let data = await response.json()
 
     this.setState({
-      pokemons: this.state.pokemons.concat(data.results)
+      pokemons: this.state.pokemons.concat(data.results),
+      nextPokemonsUrl: data.next
     })
   }
 
@@ -32,7 +48,7 @@ export default class Home extends Component {
     const { pokemons } = this.state
 
     return (
-      <div class={style.home}>
+      <div id="content" class={style.home}>
         <div class={style.pokemons}>
           {pokemons.map(item => {
             const n = item.url.replace('https://pokeapi.co/api/v2/pokemon/', '').replace('/', '')

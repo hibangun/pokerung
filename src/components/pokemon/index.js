@@ -9,11 +9,10 @@ export default class Pokemon extends Component {
   }
 
   render ({data}) {
-    console.log('Pokemon -> render -> data', data);
     return (
       <div class={style.container}>
         <div class={style.card}>
-          <img src={data.image} alt=""/>
+          <img src={data.image} alt={data.name}/>
           <p>{data.name}</p>
         </div>
       </div>
