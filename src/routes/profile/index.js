@@ -10,7 +10,7 @@ export default class Profile extends Component {
     profile: {},
     profileTypes: [],
     similars: []
-  };
+  }
 
   // gets called when this route is navigated to
   componentDidMount() {
@@ -56,7 +56,7 @@ export default class Profile extends Component {
 
       const joined = this.state.similars.concat(data)
       this.setState({
-        similars: joined
+        similars: this.shuffle(joined)
       })
     })
   }
@@ -72,12 +72,24 @@ export default class Profile extends Component {
     return str && str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
   }
 
+  shuffle (a) {
+    let j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1))
+      x = a[i]
+      a[i] = a[j]
+      a[j] = x
+    }
+
+    return a;
+  }
+
   // Note: `name` comes from the URL, courtesy of our router
   render ({ name }, { profile, similars }) {
     const id = name.split('•--')[1]
 
     return (
-      <div class={style.profile}>
+      <div id="profile" class={style.profile}>
         <div class={style.container}>
           <div class={style.header}>
             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt="" />
@@ -104,13 +116,11 @@ export default class Profile extends Component {
             </div>
           </div>
           <div class={style.similars}>
-            <h2>Similar</h2>
+            <h2>Other similar types</h2>
             {similars.length && similars[0].pokemon.map(item => {
-              // console.log('Profile -> render -> item', item);
               const n = item.pokemon.url.replace('https://pokeapi.co/api/v2/pokemon/', '').replace('/', '')
               item.pokemon.n = n
               item.pokemon.image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${n}.png`
-              // return <span>{item.pokemon}</span>
               return <Pokemon data={item.pokemon} />
             })}
           </div>
