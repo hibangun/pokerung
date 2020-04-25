@@ -4,13 +4,9 @@ import style from './style'
 import Pokemon from '../../components/pokemon'
 
 export default class Home extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      pokemons: [],
-      nextPokemonsUrl: ''
-    }
+  state = {
+    pokemons: [],
+    nextPokemonsUrl: ''
   }
 
   // gets called when this route is navigated to
@@ -44,14 +40,13 @@ export default class Home extends Component {
     })
   }
 
-  render () {
-    const { pokemons } = this.state
-
+  render ({}, { pokemons }) {
     return (
       <div id="content" class={style.home}>
         <div class={style.pokemons}>
           {pokemons.map(item => {
             const n = item.url.replace('https://pokeapi.co/api/v2/pokemon/', '').replace('/', '')
+            item.n = n
             item.image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${n}.png`
             return <Pokemon data={item} />
           })}
