@@ -65,6 +65,11 @@
   letter-spacing: 1px;
 }
 
+.profile .similars {
+  margin-top: 50px;
+}
+
 .profile .similars h2 {
+  margin-bottom: 0;
   color: var(--white-color);
 }
