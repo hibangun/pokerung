@@ -1,6 +1,11 @@
-# pokerung
+# Pokerung (Pokemon Warung)
+```
+A tiny app for Warung Pintar's technical test
+```
 
-## CLI Commands
+![screenshot](https://i.ibb.co/P5mvfzf/smartmockups-k9ftplqj.jpg)
+
+## How to run this project
 
 ``` bash
 # install dependencies
@@ -18,5 +23,3 @@ npm run serve
 # run tests with jest and preact-render-spy 
 npm run test
 ```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
